@@ -25,9 +25,7 @@ class NewsListPage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else if (state is NewsLoaded) {
             if (state.articles.isEmpty) {
-              return const Center(
-                child: Text('No news found'),
-              );
+              return const Center(child: Text('No news found'));
             }
             return RefreshIndicator(
               onRefresh: () async {
@@ -41,12 +39,12 @@ class NewsListPage extends StatelessWidget {
                   return NewsCard(
                     article: article,
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NewsDetailPage(article: article),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => NewsDetailPage(article: article),
+                      //   ),
+                      // );
                     },
                   );
                 },
@@ -86,11 +84,7 @@ class NewsCard extends StatelessWidget {
   final NewsArticle article;
   final VoidCallback onTap;
 
-  const NewsCard({
-    super.key,
-    required this.article,
-    required this.onTap,
-  });
+  const NewsCard({super.key, required this.article, required this.onTap});
 
   String _formatDate(DateTime? date) {
     if (date == null) return 'Unknown date';
@@ -130,7 +124,11 @@ class NewsCard extends StatelessWidget {
                     height: 200,
                     color: Colors.grey[300],
                     child: const Center(
-                      child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 50,
+                        color: Colors.grey,
+                      ),
                     ),
                   );
                 },
@@ -143,7 +141,7 @@ class NewsCard extends StatelessWidget {
                       child: CircularProgressIndicator(
                         value: loadingProgress.expectedTotalBytes != null
                             ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
+                                  loadingProgress.expectedTotalBytes!
                             : null,
                       ),
                     ),
@@ -158,8 +156,8 @@ class NewsCard extends StatelessWidget {
                   Text(
                     article.title,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   if (article.snippet.isNotEmpty) ...[
@@ -187,9 +185,8 @@ class NewsCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           article.sourceName,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                fontWeight: FontWeight.w500,
-                              ),
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(fontWeight: FontWeight.w500),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -197,8 +194,8 @@ class NewsCard extends StatelessWidget {
                       Text(
                         _formatDate(article.publishedDateTime),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.grey[600],
-                            ),
+                          color: Colors.grey[600],
+                        ),
                       ),
                     ],
                   ),
@@ -207,9 +204,9 @@ class NewsCard extends StatelessWidget {
                     Text(
                       'By ${article.authors.join(", ")}',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontStyle: FontStyle.italic,
-                            color: Colors.grey[600],
-                          ),
+                        fontStyle: FontStyle.italic,
+                        color: Colors.grey[600],
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
