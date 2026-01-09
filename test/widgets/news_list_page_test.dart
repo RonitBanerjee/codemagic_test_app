@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:playground/bloc/event_bloc.dart';
 import 'package:playground/bloc/event_state.dart';
@@ -11,6 +12,16 @@ class MockNewsBloc extends Mock implements NewsBloc {}
 
 void main() {
   late MockNewsBloc mockNewsBloc;
+
+  setUpAll(() async {
+    // Load .env file before running tests
+    TestWidgetsFlutterBinding.ensureInitialized();
+    dotenv.testLoad(fileInput: '''
+RAPIDAPI_KEY=test_key
+RAPIDAPI_HOST=real-time-news-data.p.rapidapi.com
+RAPIDAPI_BASE_URL=https://real-time-news-data.p.rapidapi.com
+''');
+  });
 
   setUp(() {
     mockNewsBloc = MockNewsBloc();
