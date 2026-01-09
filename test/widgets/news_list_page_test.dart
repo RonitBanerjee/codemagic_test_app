@@ -14,6 +14,12 @@ void main() {
 
   setUp(() {
     mockNewsBloc = MockNewsBloc();
+    when(() => mockNewsBloc.close()).thenAnswer((_) async {});
+    when(() => mockNewsBloc.isClosed).thenReturn(false);
+  });
+
+  tearDown(() {
+    mockNewsBloc.close();
   });
 
   Widget createWidgetUnderTest() {
